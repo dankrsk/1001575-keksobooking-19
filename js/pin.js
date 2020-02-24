@@ -3,11 +3,10 @@
 (function () {
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 81;
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
 
   function createPins(ads, template) {
-    var PIN_WIDTH = 50;
-    var PIN_HEIGHT = 70;
-
     var pin;
     var pins = [];
     var pinStyles = {

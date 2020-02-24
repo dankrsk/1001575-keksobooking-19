@@ -1,17 +1,17 @@
 'use strict';
 
 (function () {
-  function createSimilarAds(widthOfBlock) {
-    var MIN_HEIGHT = 130;
-    var MAX_HEIGHT = 630;
-    var MAX_PRICE = 100;
-    var MIN_ROOMS = 1;
-    var MAX_ROOMS = 6;
-    var MIN_GUESTS = 1;
-    var MAX_GUESTS = 10;
-    var MIN_TIME = 12;
-    var MAX_TIME = 12;
+  var MIN_HEIGHT = 130;
+  var MAX_HEIGHT = 630;
+  var MAX_PRICE = 100;
+  var MIN_ROOMS = 1;
+  var MAX_ROOMS = 6;
+  var MIN_GUESTS = 1;
+  var MAX_GUESTS = 10;
+  var MIN_TIME = 12;
+  var MAX_TIME = 12;
 
+  function createSimilarAds(widthOfBlock) {
     var ads = [{}];
     var locationX;
     var locationY;
