@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var createSimilarAds = window.data.createSimilarAds;
+  var loadAds = window.load.loadAds;
   var createPins = window.pin.createPins;
   var createPinsFragment = window.pin.createPinsFragment;
   var removeDisabledAttr = window.utils.removeDisabledAttr;
@@ -14,12 +14,11 @@
   var roomsField = filterForm.querySelector('#housing-rooms');
   var guestsField = filterForm.querySelector('#housing-guests');
 
-  function renderRandomPins() {
+  function renderPins(ads) {
     var pinTemplate = document.querySelector('#pin').content.querySelector('button');
     var pinsContainer = document.querySelector('.map__pins');
 
-    var similarAds = createSimilarAds(mapSection.offsetWidth);
-    var mapPins = createPins(similarAds, pinTemplate);
+    var mapPins = createPins(ads, pinTemplate);
     var pinsFragment = createPinsFragment(mapPins);
     pinsContainer.appendChild(pinsFragment);
   }
@@ -28,7 +27,7 @@
     removeDisabledAttr(filterFormFields);
     mapSection.classList.remove('map--faded');
 
-    renderRandomPins();
+    loadAds(renderPins);
   }
 
   function deactivateMap() {
