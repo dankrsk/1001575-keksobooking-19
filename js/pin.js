@@ -8,7 +8,7 @@
 
   function createPins(ads, template) {
     var pin;
-    var pins = [];
+    var pins = [{}];
     var pinStyles = {
       width: PIN_WIDTH,
       height: PIN_HEIGHT
@@ -22,7 +22,10 @@
       pin.style.top = ads[i].location.y - pinStyles.height + 'px';
       pinImg.src = ads[i].author.avatar;
       pinImg.alt = ads[i].offer.title;
-      pins.push(pin);
+      pins[i] = {
+        item: pin,
+        ad: ads[i]
+      };
     }
 
     return pins;
@@ -32,7 +35,7 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < pins.length; i++) {
-      fragment.appendChild(pins[i]);
+      fragment.appendChild(pins[i].item);
     }
 
     return fragment;
