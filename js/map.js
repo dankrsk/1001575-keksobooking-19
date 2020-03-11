@@ -72,7 +72,7 @@
         text += ' для ' + guests + ' гостей';
       }
     } else {
-      text = 'Для' + guests + ' гостей';
+      text = 'Для ' + guests + ' гостей';
     }
 
     return text;
@@ -156,30 +156,14 @@
   function createCardFields(fields, pin) {
     var pinOffer = pin.ad.offer;
     for (var key in fields) {
-      if (pinOffer[key]) {
+      if (pinOffer[key] || key === 'capacity' && (pinOffer.rooms || pinOffer.guests) || key === 'time' && (pinOffer.checkin || pinOffer.checkout)) {
         if (key === 'features' || key === 'photos') {
           fields[key].innerHTML = getContentFromOffer(pinOffer, key);
         } else {
           fields[key].textContent = getContentFromOffer(pinOffer, key);
         }
-      } else if (key === 'capacity') {
-        if (!(pinOffer.rooms && pinOffer.guests)) {
-          fields.capacity.remove();
-        } else {
-          fields.capacity.textContent = getContentFromOffer(pinOffer, key);
-        }
-      } else if (key === 'time') {
-        if (!(pinOffer.checkin && pinOffer.checkout)) {
-          fields.time.remove();
-        } else {
-          fields.time.textContent = getContentFromOffer(pinOffer, key);
-        }
-      } else if (key === 'avatar') {
-        if (!pin.ad.author.avatar) {
-          fields.avatar.remove();
-        } else {
-          fields.avatar.src = pin.ad.author.avatar;
-        }
+      } else if (key === 'avatar' && pin.ad.author.avatar) {
+        fields[key].src = pin.ad.author.avatar;
       } else {
         fields[key].remove();
       }
