@@ -201,7 +201,7 @@
     pin.item.addEventListener('keydown', function onPinKeyDown(evt) {
       if (evt.keyCode === ENTER_KEY) {
         removeActiveCard(pins);
-        renderCard(pin);
+        renderCard(pins, index);
         pin.item.removeEventListener('keydown', onPinKeyDown);
       }
     });
