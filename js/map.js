@@ -94,44 +94,23 @@
   }
 
   function getHTMLFromFeatures(features) {
-    var HTML = '';
+    var html = '';
 
     features.forEach(function (feature) {
-      switch (feature) {
-        case 'wifi':
-          HTML += '<li class="popup__feature popup__feature--wifi"></li>';
-          break;
-        case 'dishwasher':
-          HTML += '<li class="popup__feature popup__feature--dishwasher"></li>';
-          break;
-        case 'parking':
-          HTML += '<li class="popup__feature popup__feature--parking"></li>';
-          break;
-        case 'washer':
-          HTML += '<li class="popup__feature popup__feature--washer"></li>';
-          break;
-        case 'elevator':
-          HTML += '<li class="popup__feature popup__feature--elevator"></li>';
-          break;
-        case 'conditioner':
-          HTML += '<li class="popup__feature popup__feature--conditioner"></li>';
-          break;
-        default:
-          break;
-      }
+      html += '<li class="popup__feature popup__feature--' + feature + '"></li>';
     });
 
-    return HTML;
+    return html;
   }
 
   function getHTMLFromPhotos(photos) {
-    var HTML = '';
+    var html = '';
 
     photos.forEach(function (photo) {
-      HTML += '<img src="' + photo + '" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>';
+      html += '<img src="' + photo + '" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>';
     });
 
-    return HTML;
+    return html;
   }
 
   function getContentFromOffer(offer, key) {
@@ -273,14 +252,14 @@
     var checkedFeatures = Array.from(featureCheckboxes).filter(function (it) {
       return it.checked;
     });
+
     for (var j = 0; j < checkedFeatures.length; j++) {
       var feature = checkedFeatures[j];
-      if (!ad.offer.features.some(function (it) {
-        return it === feature.value;
-      })) {
+      if (ad.offer.features.indexOf(feature.value) === -1) {
         return false;
       }
     }
+
     return true;
   }
 
