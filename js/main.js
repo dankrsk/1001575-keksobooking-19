@@ -9,22 +9,10 @@
   var setAddress = window.form.setAddress;
   var deactivateMap = window.map.deactivateMap;
   var deactivateForm = window.form.deactivateForm;
-  var limitGuests = window.map.limitGuests;
-  var limitRooms = window.map.limitRooms;
   var calculateAddress = window.pin.calculateAddress;
   var loadAds = window.load.loadAds;
 
   var mainPin = window.map.mainPin;
-  var roomsField = window.map.roomsField;
-  var guestsField = window.map.guestsField;
-
-  function onRoomsFieldChange() {
-    limitGuests(roomsField, guestsField);
-  }
-
-  function onGuestsFieldChange() {
-    limitRooms(roomsField, guestsField);
-  }
 
   function onMainPinMouseDown(evt) {
     if (evt.button === LEFT_MOUSE_BUTTON) {
@@ -45,9 +33,6 @@
     activateForm();
 
     setAddress(calculateAddress(mainPin));
-
-    roomsField.addEventListener('change', onRoomsFieldChange);
-    guestsField.addEventListener('change', onGuestsFieldChange);
   }
 
   function deactivatePage() {
@@ -58,9 +43,6 @@
 
     mainPin.addEventListener('mousedown', onMainPinMouseDown);
     mainPin.addEventListener('keydown', onMainPinKeyDown);
-
-    roomsField.removeEventListener('change', onRoomsFieldChange);
-    guestsField.removeEventListener('change', onGuestsFieldChange);
   }
 
   deactivatePage();

@@ -289,30 +289,9 @@
     addDisabledAttr(filterFormFields);
   }
 
-  function limitGuests(roomsSelect, guestsSelect) {
-    window.utils.resetSelectField(guestsField);
-    if (roomsSelect.value === '1') {
-      guestsSelect.querySelector('option[value="2"]').disabled = true;
-      guestsSelect.querySelector('option[value="0"]').disabled = true;
-    } else if (roomsSelect.value === '2') {
-      guestsSelect.querySelector('option[value="0"]').disabled = true;
-    }
-  }
-
-  function limitRooms(roomsSelect, guestsSelect) {
-    window.utils.resetSelectField(roomsField);
-    if (guestsSelect.value === '2') {
-      roomsSelect.querySelector('option[value="1"]').disabled = true;
-    }
-  }
-
   window.map = {
     activateMap: activateMap,
     deactivateMap: deactivateMap,
-    limitGuests: limitGuests,
-    limitRooms: limitRooms,
-    mainPin: mainPin,
-    roomsField: roomsField,
-    guestsField: guestsField
+    mainPin: mainPin
   };
 })();
