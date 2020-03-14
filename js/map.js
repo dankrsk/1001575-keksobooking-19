@@ -30,19 +30,16 @@
     closeButton.addEventListener('mousedown', function onCloseButtonMouseDown(evt) {
       if (evt.button === LEFT_MOUSE_BUTTON) {
         removeActiveCard(pins);
-        closeButton.removeEventListener('mousedown', onCloseButtonMouseDown);
       }
     });
     closeButton.addEventListener('keydown', function onCloseButtonKeyDown(evt) {
       if (evt.keyCode === ENTER_KEY) {
         removeActiveCard(pins);
-        closeButton.removeEventListener('keydown', onCloseButtonKeyDown);
       }
     });
     document.addEventListener('keydown', function onEscKeyDown(evt) {
       if (evt.keyCode === ESC_KEY) {
         removeActiveCard(pins);
-        closeButton.removeEventListener('keydown', onEscKeyDown);
       }
     });
   }
@@ -292,6 +289,7 @@
   window.map = {
     activateMap: activateMap,
     deactivateMap: deactivateMap,
+    getTextFromType: getTextFromType,
     mainPin: mainPin
   };
 })();
