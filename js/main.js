@@ -83,7 +83,7 @@
 
     function onSuccess() {
       deactivatePage();
-      showLoadMessage('error');
+      showLoadMessage('success');
     }
 
     function onError() {
