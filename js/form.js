@@ -181,7 +181,10 @@
   }
 
   function deactivateForm() {
+    adForm.reset();
+    typeField.dispatchEvent(CHANGE_EVENT);
     addDisabledAttr(adFormFields);
+    adForm.classList.add('ad-form--disabled');
 
     headerField.removeEventListener('input', onHeaderFieldInput);
     priceField.removeEventListener('input', onPriceFieldInput);

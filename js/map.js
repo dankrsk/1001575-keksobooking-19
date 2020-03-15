@@ -5,6 +5,7 @@
   var ENTER_KEY = 13;
   var ESC_KEY = 27;
 
+  var DEFAULT_POSITION = window.pin.DEFAULT_POSITION;
   var createPins = window.pin.createPins;
   var createPinsFragment = window.pin.createPinsFragment;
   var removeDisabledAttr = window.utils.removeDisabledAttr;
@@ -19,7 +20,7 @@
   var typeField = filterForm.querySelector('#housing-type');
   var priceField = filterForm.querySelector('#housing-price');
   var featuresField = filterForm.querySelector('#housing-features');
-  var featureCheckboxes = featuresField.querySelectorAll('.map__checkbox');
+  var filterCheckboxes = featuresField.querySelectorAll('.map__checkbox');
   var pinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('button');
   var adsToShow;
@@ -246,7 +247,7 @@
   }
 
   function checkFeatures(ad) {
-    var checkedFeatures = Array.from(featureCheckboxes).filter(function (it) {
+    var checkedFeatures = Array.from(filterCheckboxes).filter(function (it) {
       return it.checked;
     });
 
@@ -266,6 +267,29 @@
     renderPins(filteredAds);
   }
 
+  // function resetSelects(selects) {
+  //   selects.forEach(function (it) {
+  //     it.value = 'any';
+  //   });
+  // }
+
+  // function resetCheckboxes(checkboxes) {
+  //   checkboxes.forEach(function (it) {
+  //     it.checked = false;
+  //   });
+  // }
+
+  function removePins(pins) {
+    pins.forEach(function (it) {
+      it.item.remove();
+    });
+  }
+
+  function moveMainPinToDefaultPosition(pin) {
+    pin.style.top = DEFAULT_POSITION.top + 'px';
+    pin.style.left = DEFAULT_POSITION.left + 'px';
+  }
+
   function activateMap(ads) {
     removeDisabledAttr(filterFormFields);
     mapSection.classList.remove('map--faded');
@@ -277,13 +301,30 @@
     priceField.addEventListener('change', onFilterChange);
     roomsField.addEventListener('change', onFilterChange);
     guestsField.addEventListener('change', onFilterChange);
-    featureCheckboxes.forEach(function (it) {
+    filterCheckboxes.forEach(function (it) {
       it.addEventListener('change', onFilterChange);
     });
   }
 
   function deactivateMap() {
+    // resetSelects(filterSelects);
+    // resetCheckboxes(filterCheckboxes);
+    filterForm.reset();
     addDisabledAttr(filterFormFields);
+    if (mapPins) {
+      removeActiveCard(mapPins);
+      removePins(mapPins);
+    }
+    moveMainPinToDefaultPosition(mainPin);
+    mapSection.classList.add('map--faded');
+
+    typeField.removeEventListener('change', onFilterChange);
+    priceField.removeEventListener('change', onFilterChange);
+    roomsField.removeEventListener('change', onFilterChange);
+    guestsField.removeEventListener('change', onFilterChange);
+    filterCheckboxes.forEach(function (it) {
+      it.removeEventListener('change', onFilterChange);
+    });
   }
 
   window.map = {

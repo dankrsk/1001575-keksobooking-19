@@ -5,6 +5,10 @@
   var MAIN_PIN_HEIGHT = 81;
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
+  var DEFAULT_POSITION = {
+    top: 375,
+    left: 570
+  };
 
   function createPins(ads, template) {
     var pin;
@@ -53,9 +57,22 @@
     return address;
   }
 
+  function getYOffsetCoord(y) {
+    var yOffset = y - MAIN_PIN_HEIGHT;
+    return yOffset;
+  }
+
+  function getXOffsetCoord(x) {
+    var xOffset = x - MAIN_PIN_WIDTH / 2;
+    return xOffset;
+  }
+
   window.pin = {
+    DEFAULT_POSITION: DEFAULT_POSITION,
     createPins: createPins,
     createPinsFragment: createPinsFragment,
+    getYOffsetCoord: getYOffsetCoord,
+    getXOffsetCoord: getXOffsetCoord,
     calculateAddress: calculateAddress
   };
 })();
