@@ -5,10 +5,14 @@
   var MAIN_PIN_HEIGHT = 81;
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
+  var DEFAULT_POSITION = {
+    top: 375,
+    left: 570
+  };
 
   function createPins(ads, template) {
     var pin;
-    var pins = [];
+    var pins = [{}];
     var pinStyles = {
       width: PIN_WIDTH,
       height: PIN_HEIGHT
@@ -22,7 +26,10 @@
       pin.style.top = ads[i].location.y - pinStyles.height + 'px';
       pinImg.src = ads[i].author.avatar;
       pinImg.alt = ads[i].offer.title;
-      pins.push(pin);
+      pins[i] = {
+        item: pin,
+        ad: ads[i]
+      };
     }
 
     return pins;
@@ -32,7 +39,7 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < pins.length; i++) {
-      fragment.appendChild(pins[i]);
+      fragment.appendChild(pins[i].item);
     }
 
     return fragment;
@@ -50,9 +57,22 @@
     return address;
   }
 
+  function getYOffsetCoord(y) {
+    var yOffset = y - MAIN_PIN_HEIGHT;
+    return yOffset;
+  }
+
+  function getXOffsetCoord(x) {
+    var xOffset = x - MAIN_PIN_WIDTH / 2;
+    return xOffset;
+  }
+
   window.pin = {
+    DEFAULT_POSITION: DEFAULT_POSITION,
     createPins: createPins,
     createPinsFragment: createPinsFragment,
+    getYOffsetCoord: getYOffsetCoord,
+    getXOffsetCoord: getXOffsetCoord,
     calculateAddress: calculateAddress
   };
 })();
