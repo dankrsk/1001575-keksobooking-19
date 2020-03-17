@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DEBOUNCE_INTERVAL = 500;
+
   function addDisabledAttr(elements) {
     for (var i = 0; i < elements.length; i++) {
       elements[i].disabled = true;
@@ -13,39 +15,30 @@
     }
   }
 
-  function randomInteger(min, max) {
-    var rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-  }
-
-  function randomOfferType() {
-    var offerType;
-    var numberOfRandomOffer = randomInteger(1, 4);
-
-    if (numberOfRandomOffer === 1) {
-      offerType = 'palace';
-    } else if (numberOfRandomOffer === 2) {
-      offerType = 'flat';
-    } else if (numberOfRandomOffer === 3) {
-      offerType = 'house';
-    } else {
-      offerType = 'bungalo';
-    }
-
-    return offerType;
-  }
-
   function resetSelectField(select) {
     for (var i = 0; i < select.options.length; i++) {
       select.options[i].disabled = false;
     }
   }
 
+  function debounce(cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        lastTimeout = window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  }
+
   window.utils = {
     addDisabledAttr: addDisabledAttr,
     removeDisabledAttr: removeDisabledAttr,
-    randomInteger: randomInteger,
-    randomOfferType: randomOfferType,
-    resetSelectField: resetSelectField
+    resetSelectField: resetSelectField,
+    debounce: debounce
   };
 })();

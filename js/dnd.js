@@ -68,8 +68,4 @@
   }
 
   mainPin.addEventListener('mousedown', onMainPinMouseDown);
-
-  window.data = {
-
-  };
 })();

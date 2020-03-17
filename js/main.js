@@ -11,9 +11,9 @@
   var deactivateMap = window.map.deactivateMap;
   var deactivateForm = window.form.deactivateForm;
   var calculateAddress = window.pin.calculateAddress;
-  var loadAds = window.load.loadAds;
+  var loadAds = window.network.loadAds;
   var adForm = window.form.adForm;
-  var uploadForm = window.load.uploadForm;
+  var uploadForm = window.network.uploadForm;
   var mainPin = window.map.mainPin;
 
   var resetFormButton = adForm.querySelector('.ad-form__reset');
@@ -46,12 +46,12 @@
       }
     });
 
-    document.addEventListener('click', function onClick(evt) {
+    document.addEventListener('click', function onNotMessageClick(evt) {
       evt.preventDefault();
 
       if (evt.target.className !== (state + '__message')) {
         message.remove();
-        document.removeEventListener('click', onClick);
+        document.removeEventListener('click', onNotMessageClick);
       }
     });
 

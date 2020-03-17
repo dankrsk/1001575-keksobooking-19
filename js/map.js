@@ -4,12 +4,13 @@
   var LEFT_MOUSE_BUTTON = 0;
   var ENTER_KEY = 13;
   var ESC_KEY = 27;
-
   var DEFAULT_POSITION = window.pin.DEFAULT_POSITION;
+
   var createPins = window.pin.createPins;
   var createPinsFragment = window.pin.createPinsFragment;
   var removeDisabledAttr = window.utils.removeDisabledAttr;
   var addDisabledAttr = window.utils.addDisabledAttr;
+  var debounce = window.utils.debounce;
 
   var filterForm = document.querySelector('.map__filters');
   var filterFormFields = filterForm.children;
@@ -261,23 +262,11 @@
     return true;
   }
 
-  function onFilterChange() {
+  var onFilterChange = debounce(function () {
     removeActiveCard(mapPins);
     var filteredAds = adsToShow.filter(checkType).filter(checkPrice).filter(checkRooms).filter(checkGuests).filter(checkFeatures);
     renderPins(filteredAds);
-  }
-
-  // function resetSelects(selects) {
-  //   selects.forEach(function (it) {
-  //     it.value = 'any';
-  //   });
-  // }
-
-  // function resetCheckboxes(checkboxes) {
-  //   checkboxes.forEach(function (it) {
-  //     it.checked = false;
-  //   });
-  // }
+  });
 
   function removePins(pins) {
     pins.forEach(function (it) {
@@ -294,7 +283,10 @@
     removeDisabledAttr(filterFormFields);
     mapSection.classList.remove('map--faded');
 
-    adsToShow = ads;
+    adsToShow = ads.filter(function (it) {
+      return it.offer;
+    });
+
     renderPins(adsToShow);
 
     typeField.addEventListener('change', onFilterChange);
@@ -307,8 +299,6 @@
   }
 
   function deactivateMap() {
-    // resetSelects(filterSelects);
-    // resetCheckboxes(filterCheckboxes);
     filterForm.reset();
     addDisabledAttr(filterFormFields);
     if (mapPins) {

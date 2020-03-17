@@ -144,7 +144,6 @@
     }
   }
 
-
   function onFileFieldChange(evt) {
     var field = evt.target;
 
