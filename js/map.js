@@ -24,8 +24,8 @@
   var filterCheckboxes = featuresField.querySelectorAll('.map__checkbox');
   var pinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('button');
+  var mapPins = [];
   var adsToShow;
-  var mapPins;
 
   function addCardHandler(card, pins) {
     var closeButton = card.querySelector('.popup__close');
@@ -215,8 +215,6 @@
     });
 
     if (ads.length > 0) {
-      ads = ads.slice(0, 5);
-
       mapPins = createPins(ads, pinTemplate);
 
       mapPins.forEach(addPinHandler);
@@ -264,7 +262,15 @@
 
   var onFilterChange = debounce(function () {
     removeActiveCard(mapPins);
-    var filteredAds = adsToShow.filter(checkType).filter(checkPrice).filter(checkRooms).filter(checkGuests).filter(checkFeatures);
+    var filteredAds = [];
+
+    for (var i = 0; i < adsToShow.length && filteredAds.length < 5; i++) {
+      var ad = adsToShow[i];
+      if (checkType(ad) && checkPrice(ad) && checkRooms(ad) && checkGuests(ad) && checkFeatures(ad)) {
+        filteredAds.push(ad);
+      }
+    }
+
     renderPins(filteredAds);
   });
 
@@ -287,7 +293,7 @@
       return it.offer;
     });
 
-    renderPins(adsToShow);
+    renderPins(adsToShow.slice(0, 5));
 
     typeField.addEventListener('change', onFilterChange);
     priceField.addEventListener('change', onFilterChange);
